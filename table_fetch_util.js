@@ -40,5 +40,14 @@ module.exports = (conn) => {
         })
         return defer.promise
     }
+    fetchUtil.getFilteredResult = function(table,column,value) {
+        var defer = q.defer()
+        this.runQuery(r.table(table).filter(r.row(column).eq(value))).then((result)=>{
+           defer.resolve(result)
+        }).catch((err)=>{
+            defer.reject(err)
+        })
+        return defer.promise
+    }
     return fetchUtil
 }
